@@ -4,7 +4,7 @@ interface IForm {
   toDo: string;
 }
 
-function ToDoList_exam2() {
+function ToDoList() {
   const {
     register,
     handleSubmit,
@@ -29,4 +29,4 @@ function ToDoList_exam2() {
   )
 }
 
-export default ToDoList_exam2
+export default ToDoList
