@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import ToDoList from './ToDoList';
+import ToDoList1 from './ToDoList.exam1';
+import ToDoList2 from './ToDoList.exam2';
 
 
 // styled-components 로 reset.css 적용
@@ -75,7 +76,8 @@ function App() {
   return (
     <>
       <GlobalStyled />
-      <ToDoList />
+      <ToDoList1 />
+      <ToDoList2 />
     </>
   );
 }
