@@ -1,30 +1,35 @@
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Categories, categoryState, toDoSelector } from '../atoms';
+import CreateToDo from './CreateToDo';
+import ToDo from './ToDo';
 
-interface IForm {
-  toDo: string;
-}
+
 
 function ToDoList() {
-  const {
-    register,
-    handleSubmit,
-    setValue
-  } = useForm<IForm>();
-  const onSubmit = (data: IForm) => {
-    console.log('add to do', data.toDo)
-    setValue("toDo", "")
-  }
+  const toDos = useRecoilValue(toDoSelector);
+  const [category, setCategory] = useRecoilState(categoryState);
+  const onInput = (event: React.FormEvent<HTMLSelectElement>) => {  // selcet의 change event 를 감지
+    setCategory(event.currentTarget.value as any);
+  };
 
+  useEffect(() => {
+
+  }, [])
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("toDo", {
-          required: "To Do를 작정해주세요.",
-        })} type="text" placeholder="To Do를 작정해주세요." />
-
-        <button>Add</button>
-      </form>
+      <h1>To Dos</h1>
+      <hr />
+      <select value={category} onInput={onInput}>
+        <option value={Categories.TO_DO}>To Do</option>
+        <option value={Categories.DOING}>Doing</option>
+        <option value={Categories.DONE}>Done</option>
+      </select>
+      <CreateToDo />
+      {toDos?.map((toDo) =>
+        <ToDo key={toDo.id} {...toDo} />
+      )}
     </div >
   )
 }
