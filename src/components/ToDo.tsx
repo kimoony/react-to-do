@@ -1,6 +1,53 @@
 import React from 'react'
 import { useSetRecoilState } from 'recoil';
 import { Categories, IToDo, toDoState } from '../atoms'
+import styled from 'styled-components';
+
+
+// styled-components
+const ToDoList = styled.li`
+  list-style: none;
+  padding: 10px 20px;
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  border: 1px solid;
+  border-color: ${props => props.theme.accentColor};
+  border-radius: 10px;
+  @media screen and (min-width: 768px) {
+    width: 450px;
+    transition:  0.5s ease-in
+  }
+  @media screen and (max-width: 768px) {
+    transition:  0.5s ease-in
+  }
+`;
+
+const Text = styled.span`
+`;
+
+const BtnWrapper = styled.div`
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Btn = styled.button`
+  border: none;
+  border-radius: 5px;
+  background-color: ${props => props.theme.btnColor};
+  color: ${props => props.theme.textColor};
+  margin-left: 3px;
+`;
+
+const RmBtn = styled.button`
+  border: none;
+  border-radius: 5px;
+  background-color: #ff7aa8;
+  color: ${props => props.theme.textColor};
+  margin-left: 3px;
+`;
 
 // 방법 2
 function ToDo({ text, category, id }: IToDo) {
@@ -20,25 +67,34 @@ function ToDo({ text, category, id }: IToDo) {
     })
   };
 
-
+  const handleRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos(oldToDos => {
+      const removeTarget = oldToDos.filter(toDo => toDo.id !== id)
+      return removeTarget;
+    })
+  }
 
   return (
-    <li>
-      <span>{text}</span>
-      {category !== Categories.DOING && (
-        <button name={Categories.DOING} onClick={onClick}>
-          DOING
-        </button>)}
-      {category !== Categories.TO_DO && (
-        <button name={Categories.TO_DO} onClick={onClick}>
-          TO DO
-        </button>)}
-      {category !== Categories.DONE && (
-        <button name={Categories.DONE} onClick={onClick}>
-          DONE
-        </button>)}
-
-    </li>
+    <ToDoList>
+      <Text>{text}</Text>
+      <BtnWrapper>
+        {category !== Categories.DOING && (
+          <Btn name={Categories.DOING} onClick={onClick}>
+            DOING
+          </Btn>)}
+        {category !== Categories.TO_DO && (
+          <Btn name={Categories.TO_DO} onClick={onClick}>
+            TO DO
+          </Btn>)}
+        {category !== Categories.DONE && (
+          <Btn name={Categories.DONE} onClick={onClick}>
+            DONE
+          </Btn>)}
+        <RmBtn onClick={handleRemove}>
+          X
+        </RmBtn>
+      </BtnWrapper>
+    </ToDoList>
   )
 }
 

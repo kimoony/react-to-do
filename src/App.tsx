@@ -6,7 +6,7 @@ import ToDoList from './components/ToDoList';
 // createGlobalStyle - 렌더링 될 때 컴포넌트는 전역 스코프에 스타일들을 올려준다.
 const GlobalStyled = createGlobalStyle`
 /* 글자 폰드 import */
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
 
 // reset.css
 html, body, div, span, applet, object, iframe,
@@ -60,7 +60,7 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poor Story', cursive;
   background-color: ${props => props.theme.bgColor};
   color: ${props => props.theme.textColor}
 }

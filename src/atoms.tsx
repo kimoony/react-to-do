@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
 // enum => 계속해서 써야하는 값을 저장할 수 있는 도구
 export enum Categories {
@@ -20,9 +21,16 @@ export const categoryState = atom<Categories>({
   default: Categories.TO_DO,
 })
 
+// localStorage 저장
+const { persistAtom } = recoilPersist({
+  key: "toDos",
+  storage: localStorage,
+})
+
 export const toDoState = atom<IToDo[]>({
   key: "toDo",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 })
 
 
@@ -38,3 +46,5 @@ export const toDoSelector = selector({
     return toDos.filter((toDo) => toDo.category === category);
   }
 })
+
+
